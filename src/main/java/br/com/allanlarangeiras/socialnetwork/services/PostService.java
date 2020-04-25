@@ -1,7 +1,6 @@
 package br.com.allanlarangeiras.socialnetwork.services;
 
 import br.com.allanlarangeiras.socialnetwork.dto.UserTokenDTO;
-import br.com.allanlarangeiras.socialnetwork.entities.Post;
 import br.com.allanlarangeiras.socialnetwork.entities.User;
 import br.com.allanlarangeiras.socialnetwork.repositories.PostRepository;
 import br.com.allanlarangeiras.socialnetwork.repositories.UserRepository;

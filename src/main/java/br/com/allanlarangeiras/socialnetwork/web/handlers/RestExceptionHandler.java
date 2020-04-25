@@ -1,9 +1,9 @@
 package br.com.allanlarangeiras.socialnetwork.web.handlers;
 
-import br.com.allanlarangeiras.socialnetwork.web.responses.ApiErrorResponse;
 import br.com.allanlarangeiras.socialnetwork.exceptions.InnactiveException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotAuthorizedException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
+import br.com.allanlarangeiras.socialnetwork.web.responses.ApiErrorResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

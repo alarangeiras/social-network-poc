@@ -1,7 +1,6 @@
 package br.com.allanlarangeiras.socialnetwork.web.controllers;
 
 import br.com.allanlarangeiras.socialnetwork.annotations.Secure;
-import br.com.allanlarangeiras.socialnetwork.entities.Post;
 import br.com.allanlarangeiras.socialnetwork.services.PostService;
 import br.com.allanlarangeiras.socialnetwork.types.AppHeaders;
 import br.com.allanlarangeiras.socialnetwork.web.responses.TimelineResponse;

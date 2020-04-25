@@ -1,10 +1,10 @@
 package br.com.allanlarangeiras.socialnetwork.web.controllers;
 
-import br.com.allanlarangeiras.socialnetwork.web.requests.AuthRequest;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotAuthorizedException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
 import br.com.allanlarangeiras.socialnetwork.services.AuthService;
 import br.com.allanlarangeiras.socialnetwork.types.AppHeaders;
+import br.com.allanlarangeiras.socialnetwork.web.requests.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

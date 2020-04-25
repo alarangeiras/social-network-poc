@@ -1,10 +1,10 @@
 package br.com.allanlarangeiras.socialnetwork.services;
 
 import br.com.allanlarangeiras.socialnetwork.components.CryptoComponent;
-import br.com.allanlarangeiras.socialnetwork.exceptions.InnactiveException;
-import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
 import br.com.allanlarangeiras.socialnetwork.entities.Post;
 import br.com.allanlarangeiras.socialnetwork.entities.User;
+import br.com.allanlarangeiras.socialnetwork.exceptions.InnactiveException;
+import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
 import br.com.allanlarangeiras.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
