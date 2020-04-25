@@ -5,12 +5,14 @@ import br.com.allanlarangeiras.socialnetwork.entities.User;
 import br.com.allanlarangeiras.socialnetwork.repositories.PostRepository;
 import br.com.allanlarangeiras.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Calendar;
 
 @Component
+@Profile("development")
 public class StartupComponent {
 
     @Autowired
