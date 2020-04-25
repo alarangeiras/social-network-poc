@@ -1,11 +1,11 @@
 package br.com.allanlarangeiras.socialnetwork.components;
 
+import br.com.allanlarangeiras.socialnetwork.configuration.DefaultConfigurationProperties;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotAuthorizedException;
 import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKeyFactory;
@@ -22,8 +22,8 @@ public class CryptoComponent {
     @Autowired
     private Gson gson;
 
-    @Value("socialnetworkpoc.salt")
-    private String secret;
+    @Autowired
+    private DefaultConfigurationProperties properties;
 
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
@@ -32,7 +32,7 @@ public class CryptoComponent {
         return objectOptional.map(object -> {
             return Jwts.builder()
                     .setSubject(gson.toJson(object))
-                    .signWith(SignatureAlgorithm.HS512, this.secret)
+                    .signWith(SignatureAlgorithm.HS512, properties.getSalt())
                     .compact();
         }).orElseThrow(IllegalArgumentException::new);
 
@@ -54,7 +54,7 @@ public class CryptoComponent {
 
     public String getJwtString(Optional<String> tokenOptional) {
         return Jwts.parser()
-                .setSigningKey(this.secret)
+                .setSigningKey(properties.getSalt())
                 .parseClaimsJws(tokenOptional.get())
                 .getBody()
                 .getSubject();
@@ -62,7 +62,7 @@ public class CryptoComponent {
 
     public String encryptPassword(String plainPassword) {
         String returnValue = null;
-        byte[] securePassword = hash(plainPassword.toCharArray(), secret.getBytes());
+        byte[] securePassword = hash(plainPassword.toCharArray(), properties.getSalt().getBytes());
         returnValue = Base64.getEncoder().encodeToString(securePassword);
         return returnValue;
     }
