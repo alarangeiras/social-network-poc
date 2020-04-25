@@ -1,11 +1,11 @@
 package br.com.allanlarangeiras.socialnetwork.services;
 
 import br.com.allanlarangeiras.socialnetwork.dto.UserTokenDTO;
-import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
 import br.com.allanlarangeiras.socialnetwork.entities.Post;
 import br.com.allanlarangeiras.socialnetwork.entities.User;
 import br.com.allanlarangeiras.socialnetwork.repositories.PostRepository;
 import br.com.allanlarangeiras.socialnetwork.repositories.UserRepository;
+import br.com.allanlarangeiras.socialnetwork.web.responses.TimelineResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +22,11 @@ public class PostService {
     private UserRepository userRepository;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private AuthService authService;
 
-    public List<Post> getTimelineByToken(String token) {
-        UserTokenDTO userTokenDTO = authenticationService.getDTOByToken(token);
+    public List<TimelineResponse> getTimelineByToken(String token) {
+        UserTokenDTO userTokenDTO = authService.getDTOByToken(token);
         Optional<User> user = userRepository.findById(userTokenDTO.getId());
-        return postRepository.findOrderedPostsByFollow(user.get());
+        return TimelineResponse.fromEntityList(postRepository.findOrderedPostsByFollow(user.get()));
     }
 }

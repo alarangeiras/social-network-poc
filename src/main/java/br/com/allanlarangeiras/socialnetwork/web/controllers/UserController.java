@@ -1,5 +1,6 @@
 package br.com.allanlarangeiras.socialnetwork.web.controllers;
 
+import br.com.allanlarangeiras.socialnetwork.annotations.Secure;
 import br.com.allanlarangeiras.socialnetwork.services.UserService;
 import br.com.allanlarangeiras.socialnetwork.web.requests.NewUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class UserController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @Secure
     public void createUser(@RequestBody NewUserRequest newUserRequest) {
         this.userService.save(newUserRequest.toEntity(), newUserRequest.getPassword());
     }

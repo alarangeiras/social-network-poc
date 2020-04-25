@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "User")
@@ -42,7 +43,7 @@ public class User {
         joinColumns = { @JoinColumn(name = "from_user") },
         inverseJoinColumns = { @JoinColumn(name = "to_user") }
     )
-    private Set<User> following;
+    private Set<User> following = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -50,9 +51,9 @@ public class User {
             joinColumns = { @JoinColumn(name = "to_user") },
             inverseJoinColumns = { @JoinColumn(name = "from_user") }
     )
-    private Set<User> followedBy;
+    private Set<User> followedBy = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Post> myPosts;
+    private Set<Post> myPosts = new HashSet<>();
 
 }

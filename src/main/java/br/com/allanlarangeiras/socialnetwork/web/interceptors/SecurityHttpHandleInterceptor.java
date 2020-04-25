@@ -1,7 +1,7 @@
 package br.com.allanlarangeiras.socialnetwork.web.interceptors;
 
 import br.com.allanlarangeiras.socialnetwork.annotations.Secure;
-import br.com.allanlarangeiras.socialnetwork.services.AuthenticationService;
+import br.com.allanlarangeiras.socialnetwork.services.AuthService;
 import br.com.allanlarangeiras.socialnetwork.types.AppHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class SecurityHttpHandleInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private AuthService authService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -26,7 +26,7 @@ public class SecurityHttpHandleInterceptor implements HandlerInterceptor {
         for (Annotation annotation : Arrays.asList(handlerMethod.getMethod().getDeclaredAnnotations())){
             if (annotation instanceof Secure) {
                 String token = request.getHeader(AppHeaders.TOKEN.toString());
-                authenticationService.authorize(Optional.ofNullable(token));
+                authService.authorize(Optional.ofNullable(token));
                 return true;
             }
         }

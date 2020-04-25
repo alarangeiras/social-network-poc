@@ -14,7 +14,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("from Post where user = :user order by createdAt desc")
     public List<Post> findOrderedPostsByUser(User user);
 
-    @Query("from Post where user.followedBy = :user order by createdAt desc")
+    @Query("from Post where :user MEMBER OF user.followedBy order by createdAt desc")
     public List<Post> findOrderedPostsByFollow(User user);
 
 }
