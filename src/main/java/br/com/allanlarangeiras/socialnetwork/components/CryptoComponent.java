@@ -2,7 +2,6 @@ package br.com.allanlarangeiras.socialnetwork.components;
 
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotAuthorizedException;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;

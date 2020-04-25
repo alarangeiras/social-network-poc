@@ -1,4 +1,4 @@
-package br.com.allanlarangeiras.socialnetwork.web.interceptors;
+package br.com.allanlarangeiras.socialnetwork.web.handlers;
 
 import br.com.allanlarangeiras.socialnetwork.annotations.Secure;
 import br.com.allanlarangeiras.socialnetwork.services.AuthService;

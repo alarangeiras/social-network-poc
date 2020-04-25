@@ -1,6 +1,6 @@
-package br.com.allanlarangeiras.socialnetwork.components;
+package br.com.allanlarangeiras.socialnetwork.web.handlers;
 
-import br.com.allanlarangeiras.socialnetwork.web.responses.ApiError;
+import br.com.allanlarangeiras.socialnetwork.web.responses.ApiErrorResponse;
 import br.com.allanlarangeiras.socialnetwork.exceptions.InnactiveException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotAuthorizedException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
@@ -21,21 +21,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity handleNotFound(NotFoundException notFoundException) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(ApiError.build("Resource not found"));
+                .body(ApiErrorResponse.build("Resource not found"));
     }
 
     @ExceptionHandler(NotAuthorizedException.class)
     public ResponseEntity handleNotAuthorized(NotAuthorizedException notAuthorizedException) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(ApiError.build("Not Authorized"));
+                .body(ApiErrorResponse.build("Not Authorized"));
     }
 
     @ExceptionHandler(InnactiveException.class)
     public ResponseEntity handleInnactivity(InnactiveException innactiveException) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(ApiError.build("The resource is not active"));
+                .body(ApiErrorResponse.build("The resource is not active"));
     }
 
 
