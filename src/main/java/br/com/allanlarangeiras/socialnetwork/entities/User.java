@@ -4,8 +4,6 @@ import br.com.allanlarangeiras.socialnetwork.types.Gender;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -38,19 +36,19 @@ public class User {
     @Column
     private Boolean active;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "Follow",
-        joinColumns = { @JoinColumn(name = "from") },
-        inverseJoinColumns = { @JoinColumn(name = "to") }
+        joinColumns = { @JoinColumn(name = "from_user") },
+        inverseJoinColumns = { @JoinColumn(name = "to_user") }
     )
     private Set<User> following;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Follow",
-            joinColumns = { @JoinColumn(name = "to") },
-            inverseJoinColumns = { @JoinColumn(name = "from") }
+            joinColumns = { @JoinColumn(name = "to_user") },
+            inverseJoinColumns = { @JoinColumn(name = "from_user") }
     )
     private Set<User> followedBy;
 

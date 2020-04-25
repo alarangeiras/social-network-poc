@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select distinct User from User where login = :login")
+    @Query("from User where login = :login")
     public Optional<User> findByLogin(String login);
 
 }

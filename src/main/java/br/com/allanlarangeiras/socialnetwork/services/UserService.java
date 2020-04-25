@@ -1,5 +1,6 @@
 package br.com.allanlarangeiras.socialnetwork.services;
 
+import br.com.allanlarangeiras.socialnetwork.components.CryptoComponent;
 import br.com.allanlarangeiras.socialnetwork.exceptions.InnactiveException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
 import br.com.allanlarangeiras.socialnetwork.entities.Post;
@@ -17,6 +18,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CryptoComponent cryptoComponent;
+
     public Set<Post> findAllPostsById(Long id) throws InnactiveException, NotFoundException {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isPresent()) {
@@ -30,4 +34,9 @@ public class UserService {
         }
     }
 
+    public void save(User user, String password) {
+        String encryptedPassword = cryptoComponent.encryptPassword(password);
+        user.setEncryptedPassword(encryptedPassword);
+        this.userRepository.save(user);
+    }
 }

@@ -40,24 +40,26 @@ public class CryptoComponent {
 
     }
 
-    public <T> T decodeJwt(Optional<String> tokenOptional) throws NotAuthorizedException {
+    public boolean validateJwt(Optional<String> tokenOptional) throws NotAuthorizedException {
         if (tokenOptional.isPresent()) {
-            String json = Jwts.parser()
-                    .setSigningKey(this.secret)
-                    .parseClaimsJws(tokenOptional.get())
-                    .getBody()
-                    .getSubject();
-
             try {
-                T parsedObject = gson.<T>fromJson(json, new ArrayList<T>().getClass().getComponentType());
-                return parsedObject;
-            } catch (JsonSyntaxException jsonSyntaxException) {
-                throw new NotAuthorizedException();
+                this.getJwtString(tokenOptional);
+                return true;
+            } catch (Exception exception) {
+                return false;
             }
         } else {
-            throw new IllegalArgumentException();
+            return false;
         }
 
+    }
+
+    public String getJwtString(Optional<String> tokenOptional) {
+        return Jwts.parser()
+                .setSigningKey(this.secret)
+                .parseClaimsJws(tokenOptional.get())
+                .getBody()
+                .getSubject();
     }
 
     public String encryptPassword(String plainPassword) {
@@ -76,7 +78,7 @@ public class CryptoComponent {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
         try {
-            SecretKeyFactory skf = SecretKeyFactory.getInstance(secret);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             return skf.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);

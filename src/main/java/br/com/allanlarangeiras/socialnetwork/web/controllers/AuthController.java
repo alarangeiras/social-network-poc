@@ -25,7 +25,7 @@ public class AuthController {
 
     @GetMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity login(@RequestBody @Valid AuthRequest authRequest) throws NotFoundException, NotAuthorizedException {
-        String token = authenticationService.login(authRequest.getUsername(), authRequest.getPassword());
+        String token = authenticationService.login(authRequest.getLogin(), authRequest.getPassword());
 
         HttpHeaders headers = new HttpHeaders();
         headers.set(AppHeaders.TOKEN.toString(), token);
