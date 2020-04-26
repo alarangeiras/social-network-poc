@@ -34,8 +34,8 @@ public class User {
     @Column
     private Gender gender;
 
-    @Column
-    private Boolean active;
+    @Column(nullable = false)
+    private Boolean active = true;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
