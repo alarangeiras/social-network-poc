@@ -49,7 +49,7 @@ public class AuthServiceUnitTest extends Assertions {
     }
 
     @Test
-    public void testLoginNotFoundException() {
+    public void testLoginNotAuthorizedException() {
         Mockito.when(userRepository.findByLogin(Mockito.anyString())).thenAnswer(invocation -> {
             User user = new User();
             user.setEncryptedPassword("");
@@ -66,7 +66,7 @@ public class AuthServiceUnitTest extends Assertions {
     }
 
     @Test
-    public void testLoginNotAuthorizedException() {
+    public void testLoginNotFoundException() {
         Mockito.when(userRepository.findByLogin(Mockito.anyString())).thenReturn(Optional.ofNullable(null));
 
         try {
