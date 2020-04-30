@@ -1,11 +1,9 @@
 package br.com.allanlarangeiras.socialnetwork.types;
 
-import lombok.Getter;
+public final class AppHeaders {
 
-@Getter
-public enum AppHeaders {
-
-    TOKEN;
-
+    public static final String TOKEN = "TOKEN";
+    
+    private AppHeaders() {}
 
 }
