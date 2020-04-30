@@ -4,16 +4,15 @@ import br.com.allanlarangeiras.socialnetwork.web.handlers.SecurityHttpHandleInte
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfiguration extends WebMvcConfigurationSupport {
+public class WebConfiguration implements WebMvcConfigurer {
 
     @Autowired
     private SecurityHttpHandleInterceptor securityHttpHandleInterceptor;
 
-    @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(securityHttpHandleInterceptor);
     }
 }

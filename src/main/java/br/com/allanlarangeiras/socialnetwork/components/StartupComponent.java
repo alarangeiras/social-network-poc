@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.Calendar;
 
 @Component
-@Profile("development")
+@Profile("dev")
 public class StartupComponent {
 
     @Autowired

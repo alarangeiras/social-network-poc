@@ -22,7 +22,7 @@ public class TimelineController {
     private PostService postService;
 
 
-    @Secure
+	@Secure
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TimelineResponse> get(@RequestHeader(name = AppHeaders.TOKEN, required = true) String token) {
         return this.postService.getTimelineByToken(token);

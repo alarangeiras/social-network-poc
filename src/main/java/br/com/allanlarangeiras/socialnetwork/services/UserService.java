@@ -6,6 +6,8 @@ import br.com.allanlarangeiras.socialnetwork.entities.User;
 import br.com.allanlarangeiras.socialnetwork.exceptions.InnactiveException;
 import br.com.allanlarangeiras.socialnetwork.exceptions.NotFoundException;
 import br.com.allanlarangeiras.socialnetwork.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -27,6 +30,7 @@ public class UserService {
             if (userOptional.get().getActive() == true) {
                 return userOptional.get().getMyPosts();
             } else {
+            	log.debug("usuario {} esta inativo", userOptional.get().getName());
                 throw new InnactiveException();
             }
         } else {
@@ -38,5 +42,6 @@ public class UserService {
         String encryptedPassword = cryptoComponent.encryptPassword(password);
         user.setEncryptedPassword(encryptedPassword);
         this.userRepository.save(user);
+        log.info("user {} created", user.getName());
     }
 }
