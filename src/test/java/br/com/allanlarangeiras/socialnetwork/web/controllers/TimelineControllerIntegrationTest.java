@@ -6,15 +6,13 @@ import br.com.allanlarangeiras.socialnetwork.entities.Post;
 import br.com.allanlarangeiras.socialnetwork.entities.User;
 import br.com.allanlarangeiras.socialnetwork.repositories.PostRepository;
 import br.com.allanlarangeiras.socialnetwork.repositories.UserRepository;
-import br.com.allanlarangeiras.socialnetwork.services.AuthService;
 import br.com.allanlarangeiras.socialnetwork.types.AppHeaders;
 import br.com.allanlarangeiras.socialnetwork.util.TestUtil;
+import br.com.allanlarangeiras.socialnetwork.web.responses.TimelineResponse;
 import com.google.gson.Gson;
-import io.swagger.annotations.Authorization;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,6 +57,7 @@ class TimelineControllerIntegrationTest extends Assertions {
 
     @Test
     public void getTimeline_returnHttp200() throws Exception {
+        //mock dependencies
         Mockito.doReturn(true).when(cryptoComponent).validateJwt(Mockito.any());
 
         Mockito.doAnswer(invocation -> {
@@ -87,14 +86,22 @@ class TimelineControllerIntegrationTest extends Assertions {
             return responseList;
         }).when(postRepository).findOrderedPostsByFollow(Mockito.any());
 
+        //http request
         HttpHeaders headers = new HttpHeaders();
         headers.set(AppHeaders.TOKEN.toString(), "teste");
 
         HttpEntity httpEntity = new HttpEntity(null, headers);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(testUtil.createUrlWithPort("/timeline"), HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<TimelineResponse[]> responseEntity = restTemplate.exchange(testUtil.createUrlWithPort("/timeline"), HttpMethod.GET, httpEntity, TimelineResponse[].class);
 
+        //asserts
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+        assertTrue(responseEntity.getBody().length > 0);
+
+        TimelineResponse timelineResponse = responseEntity.getBody()[0];
+        assertTrue(timelineResponse.getAuthor() != null);
+        assertTrue(timelineResponse.getContent() != null);
+        assertTrue(timelineResponse.getCreatedAt() != null);
 
     }
 
